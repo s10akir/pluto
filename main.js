@@ -2,7 +2,9 @@
 
 require('dotenv').config();
 const Eris = require('eris');
-const bot = new Eris(process.env.BOT_TOKEN);
+const bot = new Eris.CommandClient(process.env.BOT_TOKEN, {}, {
+    prefix: ':' 
+});
 
 
 bot.on('ready', () => {
