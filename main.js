@@ -23,4 +23,30 @@ bot.on("voiceChannelLeave", (member, oldChannel) => {
   bot.createMessage(textChannel.id, msg);
 });
 
+bot.registerCommand('ksv-sai', (message, args) => {
+    if (args.length === 0) {
+      return '[!] please see help. run /help ksv-sai'
+    }
+
+    const command = args[0];
+    switch (command) {
+        case 'get':
+            return '0000-00: dummypasswd';  // TODO
+
+        case 'set':
+            return 'update password. old => new';  // TODO
+
+        default:
+            return `[!] ${command}: command not found.`
+    }
+  }, {
+    description: 'ksv-saiのあれこれ',
+    fullDescription: 'ksv-saiのpasswordを管理するコマンド。',
+    usage: ['```',
+            '/ksv-sai get          : 最新のpasswordを返す',
+            '/ksv-sai set PASSWORD : 新しいpasswordを登録する',
+            '```'
+           ].join('\n')
+  });
+
 bot.connect();
