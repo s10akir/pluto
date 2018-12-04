@@ -74,3 +74,4 @@ typings/
 #webStrom
 .idea
 
+database.sqlite3

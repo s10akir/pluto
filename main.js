@@ -1,11 +1,24 @@
 'use strict';
 
+require('date-utils');
 require('dotenv').config();
 const Eris = require('eris');
 const bot = new Eris.CommandClient(process.env.BOT_TOKEN, {}, {
     prefix: '/'
 });
 
+// db
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('', '', '', {
+    dialect: 'sqlite',
+    storage: './database.sqlite3',
+    operatorsAliases: false
+});
+
+// KsvSai Model
+const KsvSai = sequelize.define('ksvSai', {
+    password: Sequelize.STRING
+});
 
 bot.on('ready', () => {
     console.log('Ready!');
@@ -31,10 +44,21 @@ bot.registerCommand('ksv-sai', (message, args) => {
     const command = args[0];
     switch (command) {
         case 'get':
-            return '0000-00: dummypasswd';  // TODO
+            return KsvSai.max('id').then((id) => {
+                return KsvSai.findOne({where: {id: id}}).then(pass => {
+                    return pass.password;
+                })
+            });
 
         case 'set':
-            return 'update password. old => new';  // TODO
+            // TODO: refactor
+            const newPass = args[1];
+            sequelize.sync()
+                .then(() => KsvSai.create({
+                    password: newPass
+                }));
+
+            return `update password. : ${newPass}`;  // TODO
 
         default:
             return `[!] ${command}: command not found.`
