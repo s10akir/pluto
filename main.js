@@ -3,7 +3,7 @@
 require('dotenv').config();
 const Eris = require('eris');
 const bot = new Eris.CommandClient(process.env.BOT_TOKEN, {}, {
-    prefix: '!' 
+  prefix: '!'
 });
 
 
@@ -24,4 +24,3 @@ bot.on("voiceChannelLeave", (member, oldChannel) => {
 });
 
 bot.connect();
-
