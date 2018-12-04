@@ -70,3 +70,7 @@ typings/
 
 # dotenv
 .env
+
+#webStrom
+.idea
+
